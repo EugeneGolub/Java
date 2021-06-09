@@ -1,0 +1,149 @@
+import java.io.*;
+import java.lang.*;
+import java.util.Scanner;
+public class Laba5 {
+    static class info{
+        int date, temp, tusk;
+        info[] mas = new info[10];
+        public info(){}
+        Scanner in = new Scanner(System.in);
+        public void vvid(int n){
+            for (int i =0 ; i<n; i++) {
+                try(FileWriter writer = new FileWriter("laba.txt",true)) {
+                    mas[i] = new info();
+                    System.out.println("Введіть дату: ");
+                    mas[i].date = in.nextInt();
+                    System.out.println("Місце темпуратуру: ");
+                    mas[i].temp = in.nextInt();
+
+                    System.out.println("Тиск: ");
+                    mas[i].tusk = in.nextInt();
+                    writer.write(Integer.toString(mas[i].date));
+                    writer.write(Integer.toString(mas[i].temp));
+                    writer.write(Integer.toString(mas[i].tusk));
+                    writer.append('\n');
+                    writer.flush();
+                }
+                catch(IOException ex){
+
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+        public void vuvid(int n){
+                try(FileReader reader = new FileReader("laba.txt"))
+                {
+                    // читаем посимвольно
+                    int c;
+                    while((c=reader.read())!=-1){
+
+                        System.out.print((char)c);
+                    }
+                }
+                catch(IOException ex){
+
+                    System.out.println(ex.getMessage());
+                }
+        }
+        void zavd1(int n){
+            int max = mas[0].temp;
+            for(int i = 0; i<n; i++){
+                if(max < mas[i].temp){
+                    max = mas[i].temp;
+                }
+            }
+            System.out.println("Найбільша температура: " + max);
+            for(int i = 0; i<n; i++){
+                System.out.println("\nДата: " + mas[i].date + "\t" + "|" + "\t" + "Температура: " + mas[i].temp + "\t" + "|" + "\t" + "Тиск: " + mas[i].tusk);
+            }
+        }
+    }
+    static abstract class navch{
+        String nazva_ky, nazva_ka;
+
+    }
+    static class lek extends navch{
+        int data, group, kilk;
+        int serr;
+        lek() { }
+        lek(String na, String naz, int da, int gr, int ki) {this.nazva_ky = na; this.nazva_ka = naz; this.data = da; this.group = gr; this.kilk = ki;}
+        lek[] mas = new lek[10];
+        public void vvid(int n){
+            Scanner in = new Scanner(System.in);
+            for (int i=0; i<n; i++){
+                try(FileWriter writer = new FileWriter("laba11.txt",true)) {
+                    mas[i] = new lek();
+                    System.out.println("Назва курсу: ");
+                    mas[i].nazva_ky = in.next();
+                    System.out.println("Назва кафедри: ");
+                    mas[i].nazva_ka = in.next();
+                    System.out.println("Дату: ");
+                    mas[i].data = in.nextInt();
+                    System.out.println("Група: ");
+                    mas[i].group = in.nextInt();
+                    System.out.println("Введіть кількість: ");
+                    mas[i].kilk = in.nextInt();
+                    writer.write(mas[i].nazva_ky);
+                    writer.write(mas[i].nazva_ka);
+                    writer.write(Integer.toString(mas[i].data));
+                    writer.write(Integer.toString(mas[i].group));
+                    writer.write(Integer.toString(mas[i].kilk));
+                    writer.append('\n');
+                    writer.flush();
+                }
+                catch(IOException ex){
+
+                    System.out.println(ex.getMessage());
+                }
+
+            }
+        }
+        void zavd1(int n){
+            int ser = mas[0].kilk;
+            for (int i = 1; i < n; i++){
+            ser += mas[i].kilk;
+            getser(ser);
+            }
+            serr = serr / n;
+            System.out.println("Середня кільк: " + serr);
+        }
+        void zavd2(int n){
+            int max = mas[0].kilk;
+            for(int i = 0; i<n; i++){
+                if(max < mas[i].kilk){
+                    max = mas[i].kilk;
+                }
+            }
+            System.out.println("Найбільша кількість учасників: " + max);
+        }
+        void zavd3(int n){
+            for(int i = 0; i<n; i++){
+                System.out.println("Довжина назви: " + mas[i].nazva_ka.length());
+            }
+        }
+        void getser(int ser){
+            serr = ser;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Скільки буде записів? ");
+        int n = in.nextInt();
+        System.out.print("Виберіть завдання (1 або 2): ");
+        int m = in.nextInt();
+        if (m == 1) {
+            info i = new info();
+            i.vvid(n);
+            i.vuvid(n);
+            i.zavd1(n);
+        }
+        else if (m == 2){
+        lek l = new lek();
+        l.vvid(n);
+        l.zavd1(n);
+        l.zavd2(n);
+        l.zavd3(n);
+        }
+        else System.out.print("Введіть число правильно.");
+    }
+}
