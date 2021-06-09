@@ -1,0 +1,52 @@
+import java.util.Random;
+import java.util.RandomAccess;
+import java.util.Scanner; 
+public class Laba2 { 
+public static class result{ 
+String mis; 
+int plan_vup, fact_vup; 
+int min, max; 
+result(){ } 
+void takemax(int ma){ this.max = ma; } 
+void takemin(int mi){ this.min = mi; } 
+} 
+public static void main(String[] args) { 
+Scanner in = new Scanner(System.in); 
+System.out.print("Скільки буде записів? "); 
+int n = in.nextInt(); 
+result[] mas = new result[n]; 
+System.out.println(n); 
+for (int i = 0; i <n; i++){ 
+mas[i]=new result(); 
+System.out.println("Введіть місяць "); 
+mas[i].mis = in.next(); 
+System.out.println("План: "); 
+mas[i].plan_vup = in.nextInt(); 
+System.out.println("Факт: "); 
+mas[i].fact_vup = in.nextInt(); 
+} 
+for (int i = 0 ; i < n; i++){ 
+if (mas[i].plan_vup > mas[i].fact_vup){ 
+System.out.println("В цьому місяці не була виповнена норма: "); 
+System.out.print("Місяць: " + mas[i].mis + ". План випуску: " + mas[i].plan_vup + ". Фактичний випуск: " + mas[i].fact_vup); } 
+} 
+int max; int max2; int min2;
+
+    result m = new result();
+int min=(mas[0].fact_vup/mas[0].plan_vup)*100;
+    max = (mas[0].fact_vup/mas[0].plan_vup)*100;
+for (int i = 0 ; i <n; i++){
+    max2 = (mas[i].fact_vup/mas[i].plan_vup)*100;
+    min2 = (mas[i].fact_vup/mas[i].plan_vup)*100;
+    if (max2 > max){
+        max = max2;
+        m.takemax(max);
+    }
+    if (min2 < min){
+        min = min2;
+        m.takemin(min);
+    }
+}
+System.out.println("\nНайбільший відсоток: " + m.max + ". Наймешний відсоток: " + m.min);
+}
+}
