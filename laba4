@@ -1,0 +1,82 @@
+import java.util.Random;
+import java.util.RandomAccess;
+import java.lang.*;
+import java.util.Scanner;
+public class Laba4 {
+    static abstract class konferension{
+        String name, adress;
+        konferension(){}
+        public abstract void output(int n);
+    }
+    static class zasid extends konferension{
+        int date, kilk;
+        String tema;
+        zasid(){}
+        zasid[] mas = new zasid[10];
+        zasid(String na, String ad, int da, String te, int ki){ this.name = na; this.adress = ad; this.date = da; this.tema = te; this.kilk = ki;}
+        public void input(int n) {
+            Scanner in = new Scanner(System.in);
+            for (int i =0 ; i<n; i++) {
+                mas[i] = new zasid();
+                System.out.println("Введіть назву: ");
+                mas[i].name = in.next();
+                System.out.println("Місце проведення: ");
+                mas[i].adress = in.next();
+                System.out.println("Дату: ");
+                mas[i].date = in.nextInt();
+                System.out.println("Введіть тему: ");
+                mas[i].tema = in.next();
+                System.out.println("Введіть кількість: ");
+                mas[i].kilk = in.nextInt();
+            }
+
+        }
+        public final void output(int n) {
+            for (int i = 0; i < n; i++) {
+                System.out.println("Назва коференції: " + mas[i].name + ". Місце проведення: " + mas[i].adress);
+                System.out.println(". Дата проведення: " + mas[i].date + ". Тема: " + mas[i].tema + ". Кількість учасників: " + mas[i].kilk);
+            }
+        }
+        int kilkkk;
+        void getki(int kilkk){
+            kilkkk = kilkk;
+        }
+        void zavd1(int n){
+            int kilkk = 0;
+            for (int i = 0; i<n; i++){
+                kilkk += mas[i].kilk;
+                getki(kilkk);
+            }
+            kilkkk = kilkk / n;
+            System.out.println("Середня кількість учасників: " + kilkkk);
+        }
+        void zavd2(int n){
+            int max = mas[0].kilk;
+            for(int i = 0; i<n; i++){
+                if(max < mas[i].kilk){
+                    max = mas[i].kilk;
+                }
+            }
+            System.out.println("Найбільша кількість учасників: " + max);
+        }
+        void zavd3(int n){
+            for(int i = 0; i<n; i++){
+                System.out.println("Довжина назви: " + mas[i].name.length());
+            }
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Скільки буде записів? ");
+        int n = in.nextInt();
+        zasid z = new zasid();
+        z.input(n);
+
+        z.output(n);
+        z.zavd1(n);
+        z.zavd2(n);
+        z.zavd3(n);
+        }
+
+    }
+
